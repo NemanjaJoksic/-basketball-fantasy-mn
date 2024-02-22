@@ -1,9 +1,9 @@
 #!/bin/sh
 
-docker stop micronaut-vt
-docker rm micronaut-vt
-docker rmi micronaut-vt
+docker stop game-engine
+docker rm game-engine
+docker rmi game-engine
 
 ./gradlew clean build
 
-docker build -t micronaut-vt .
+docker build -t game-engine .
