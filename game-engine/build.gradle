@@ -1,0 +1,74 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.micronaut.application") version "4.3.1"
+    id("io.micronaut.aot") version "4.3.1"
+}
+
+version = "1.0.0"
+group = "org.joksin.bf"
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    lombokVersion = "1.18.30"
+    postgresVersion= "42.7.1"
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    annotationProcessor("io.micronaut.validation:micronaut-validation")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor") //jpa
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.validation:micronaut-validation")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa") //jpa
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari") //jpa
+    implementation("io.micronaut.flyway:micronaut-flyway") //jpa
+
+    compileOnly("io.micronaut:micronaut-http-client")
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.postgresql:postgresql") //jpa
+    runtimeOnly("org.flywaydb:flyway-database-postgresql") //jpa
+
+    testImplementation("io.micronaut:micronaut-http-client")
+}
+
+
+application {
+    mainClass.set("org.joksin.bf.gameengine.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
+}
+
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("org.joksin.bf.gameengine*")
+    }
+    aot {
+    // Please review carefully the optimizations enabled below
+    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+    }
+}
+
+
+
