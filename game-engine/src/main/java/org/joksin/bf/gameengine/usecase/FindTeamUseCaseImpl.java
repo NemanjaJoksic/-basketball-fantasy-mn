@@ -20,6 +20,6 @@ class FindTeamUseCaseImpl implements FindTeamUseCase {
   @Override
   @Transactional(readOnly = true)
   public Optional<Team> findById(long id) {
-    return teamRepository.findById(id).map(teamMapper::fromEntity);
+    return teamRepository.findById(id).map(teamMapper::fromEntityWithDetails);
   }
 }

@@ -42,6 +42,7 @@ public class TeamController {
   }
 
   @Post("/api/teams")
+  @Status(HttpStatus.CREATED)
   public Team create(@Body CreateTeamRequest createTeamRequest) {
     return createTeamUseCase.create(createTeamRequest);
   }

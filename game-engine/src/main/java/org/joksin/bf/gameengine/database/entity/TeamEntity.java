@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +23,9 @@ public class TeamEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private CountryEntity country;
+
+  @OrderBy("number")
+  @OneToMany(mappedBy = "team")
+  private Set<PlayerEntity> players;
+
 }

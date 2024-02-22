@@ -4,6 +4,7 @@ import jakarta.inject.Singleton;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.database.entity.PlayerEntity;
 import org.joksin.bf.gameengine.model.Player;
+import org.joksin.bf.gameengine.model.Team;
 
 import java.util.List;
 
@@ -12,13 +13,14 @@ import java.util.List;
 public class PlayerMapper {
 
   private final CountryMapper countryMapper;
-  private final TeamMapper teamMapper;
 
   public List<Player> fromEntities(List<PlayerEntity> playerEntities) {
     return playerEntities.stream().map(this::fromEntity).toList();
   }
 
   public Player fromEntity(PlayerEntity playerEntity) {
+    var teamEntity = playerEntity.getTeam();
+
     return Player.builder()
         .id(playerEntity.getId())
         .name(playerEntity.getName())
@@ -27,7 +29,12 @@ public class PlayerMapper {
         .born(playerEntity.getBorn())
         .position(playerEntity.getPosition())
         .country(countryMapper.fromEntity(playerEntity.getCountry()))
-        .team(teamMapper.fromEntity(playerEntity.getTeam()))
+        .team(
+            Team.builder()
+                .id(teamEntity.getId())
+                .name(teamEntity.getName())
+                .country(countryMapper.fromEntity(teamEntity.getCountry()))
+                .build())
         .build();
   }
 }

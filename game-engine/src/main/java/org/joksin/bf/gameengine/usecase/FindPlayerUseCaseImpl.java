@@ -7,11 +7,11 @@ import org.joksin.bf.gameengine.database.PlayerRepository;
 import org.joksin.bf.gameengine.mapper.PlayerMapper;
 import org.joksin.bf.gameengine.model.Player;
 
-import java.util.List;
+import java.util.Optional;
 
 @Singleton
 @AllArgsConstructor
-class FindPlayersUseCaseImpl implements FindPlayersUseCase {
+class FindPlayerUseCaseImpl implements FindPlayerUseCase {
 
   private final PlayerRepository playerRepository;
 
@@ -19,8 +19,7 @@ class FindPlayersUseCaseImpl implements FindPlayersUseCase {
 
   @Override
   @Transactional(readOnly = true)
-  public List<Player> findAll() {
-    var playerEntities = playerRepository.findAll();
-    return playerMapper.fromEntities(playerEntities);
+  public Optional<Player> findById(long id) {
+    return playerRepository.findById(id).map(playerMapper::fromEntity);
   }
 }
