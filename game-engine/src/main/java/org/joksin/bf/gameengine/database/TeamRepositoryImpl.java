@@ -24,7 +24,22 @@ class TeamRepositoryImpl implements TeamRepository {
   }
 
   @Override
+  public boolean existsById(long id) {
+    return teamJpaRepository.existsById(id);
+  }
+
+  @Override
   public boolean existsByName(String name) {
     return teamJpaRepository.existsByName(name);
+  }
+
+  @Override
+  public TeamEntity save(TeamEntity teamEntity) {
+    return teamJpaRepository.save(teamEntity);
+  }
+
+  @Override
+  public void deleteById(long id) {
+    teamJpaRepository.deleteById(id);
   }
 }

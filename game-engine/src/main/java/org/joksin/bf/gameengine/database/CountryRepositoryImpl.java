@@ -1,6 +1,7 @@
 package org.joksin.bf.gameengine.database;
 
 import jakarta.inject.Singleton;
+import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.database.entity.CountryEntity;
 
@@ -12,9 +13,16 @@ class CountryRepositoryImpl implements CountryRepository {
 
   private final CountryJpaRepository countryJpaRepository;
 
+  private final EntityManager entityManager;
+
   @Override
   public List<CountryEntity> findAll() {
     return countryJpaRepository.findAll();
+  }
+
+  @Override
+  public CountryEntity findReferenceById(long id) {
+    return entityManager.getReference(CountryEntity.class, id);
   }
 
   @Override

@@ -11,5 +11,11 @@ public interface TeamRepository {
 
   Optional<TeamEntity> findById(long id);
 
+  boolean existsById(long id);
+
   boolean existsByName(String name);
+
+  TeamEntity save(TeamEntity teamEntity);
+
+  void deleteById(long id);
 }

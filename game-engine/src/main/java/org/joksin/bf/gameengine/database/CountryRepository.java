@@ -8,5 +8,7 @@ public interface CountryRepository {
 
   List<CountryEntity> findAll();
 
+  CountryEntity findReferenceById(long id);
+
   boolean existsById(long id);
 }

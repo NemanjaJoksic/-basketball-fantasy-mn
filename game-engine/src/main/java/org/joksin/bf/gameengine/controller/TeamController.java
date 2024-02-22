@@ -8,7 +8,9 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.model.Team;
 import org.joksin.bf.gameengine.model.request.CreateTeamRequest;
+import org.joksin.bf.gameengine.model.request.DeleteTeamRequest;
 import org.joksin.bf.gameengine.usecase.CreateTeamUseCase;
+import org.joksin.bf.gameengine.usecase.DeleteTeamUseCase;
 import org.joksin.bf.gameengine.usecase.FindTeamUseCase;
 import org.joksin.bf.gameengine.usecase.FindTeamsUseCase;
 
@@ -22,6 +24,7 @@ public class TeamController {
   private final FindTeamsUseCase findTeamsUseCase;
   private final FindTeamUseCase findTeamUseCase;
   private final CreateTeamUseCase createTeamUseCase;
+  private final DeleteTeamUseCase deleteTeamUseCase;
 
   @Get("/api/teams")
   public List<Team> findAll() {
@@ -41,5 +44,10 @@ public class TeamController {
   @Post("/api/teams")
   public Team create(@Body CreateTeamRequest createTeamRequest) {
     return createTeamUseCase.create(createTeamRequest);
+  }
+
+  @Delete("/api/teams/{id}")
+  public void delete(@PathVariable Long id) {
+    deleteTeamUseCase.delete(new DeleteTeamRequest(id));
   }
 }
