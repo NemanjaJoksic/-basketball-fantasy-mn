@@ -11,15 +11,20 @@ import java.util.Optional;
 @AllArgsConstructor
 class PlayerRepositoryImpl implements PlayerRepository {
 
-    private final PlayerJpaRepository playerJpaRepository;
+  private final PlayerJpaRepository playerJpaRepository;
 
-    @Override
-    public List<PlayerEntity> findAll() {
-        return playerJpaRepository.findAll();
-    }
+  @Override
+  public List<PlayerEntity> findAll() {
+    return playerJpaRepository.findAll();
+  }
 
-    @Override
-    public Optional<PlayerEntity> findById(long id) {
-        return playerJpaRepository.findById(id);
-    }
+  @Override
+  public Optional<PlayerEntity> findById(long id) {
+    return playerJpaRepository.findById(id);
+  }
+
+  @Override
+  public PlayerEntity save(PlayerEntity playerEntity) {
+    return playerJpaRepository.save(playerEntity);
+  }
 }

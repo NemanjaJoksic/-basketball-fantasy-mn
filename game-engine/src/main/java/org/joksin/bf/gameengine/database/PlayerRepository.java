@@ -10,4 +10,6 @@ public interface PlayerRepository {
   List<PlayerEntity> findAll();
 
   Optional<PlayerEntity> findById(long id);
+
+  PlayerEntity save(PlayerEntity playerEntity);
 }
