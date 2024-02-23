@@ -5,6 +5,9 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
+import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.model.Player;
 import org.joksin.bf.gameengine.model.request.CreatePlayerRequest;
@@ -24,11 +27,13 @@ public class PlayerController {
   private final CreatePlayerUseCase createPlayerUseCase;
 
   @Get("/api/players")
+  @PermitAll
   public List<Player> findAll() {
     return findPlayersUseCase.findAll();
   }
 
   @Get("/api/players/{id}")
+  @PermitAll
   public Player findById(@PathVariable Long id) {
     return findPlayerUseCase
         .findById(id)
@@ -40,6 +45,7 @@ public class PlayerController {
 
   @Post("/api/players")
   @Status(HttpStatus.CREATED)
+  @Secured(SecurityRule.IS_AUTHENTICATED)
   public Player create(@Body CreatePlayerRequest createPlayerRequest) {
     return createPlayerUseCase.create(createPlayerRequest);
   }

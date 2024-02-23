@@ -4,8 +4,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
-import io.micronaut.security.annotation.Secured;
-import io.micronaut.security.rules.SecurityRule;
+import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.joksin.bf.gameengine.model.Country;
@@ -22,9 +21,7 @@ public class CountryController {
   private final FindCountriesUseCase findCountriesUseCase;
 
   @Get("/api/countries")
-//  @PermitAll
-  @Secured(SecurityRule.IS_AUTHENTICATED)
-//  @Secured(SecurityRule.IS_ANONYMOUS)
+  @PermitAll
   public List<Country> findAll() {
     log.info("Getting all countries");
     return findCountriesUseCase.findAll();

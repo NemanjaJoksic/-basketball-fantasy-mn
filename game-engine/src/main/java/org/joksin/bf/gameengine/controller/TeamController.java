@@ -5,6 +5,9 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
+import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.model.Team;
 import org.joksin.bf.gameengine.model.request.CreateTeamRequest;
@@ -27,11 +30,13 @@ public class TeamController {
   private final DeleteTeamUseCase deleteTeamUseCase;
 
   @Get("/api/teams")
+  @PermitAll
   public List<Team> findAll() {
     return findTeamsUseCase.findAll();
   }
 
   @Get("/api/teams/{id}")
+  @PermitAll
   public Team findById(@PathVariable Long id) {
     return findTeamUseCase
         .findById(id)
@@ -43,11 +48,13 @@ public class TeamController {
 
   @Post("/api/teams")
   @Status(HttpStatus.CREATED)
+  @Secured(SecurityRule.IS_AUTHENTICATED)
   public Team create(@Body CreateTeamRequest createTeamRequest) {
     return createTeamUseCase.create(createTeamRequest);
   }
 
   @Delete("/api/teams/{id}")
+  @Secured(SecurityRule.IS_AUTHENTICATED)
   public void delete(@PathVariable Long id) {
     deleteTeamUseCase.delete(new DeleteTeamRequest(id));
   }
