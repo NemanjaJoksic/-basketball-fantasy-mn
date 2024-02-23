@@ -22,12 +22,16 @@ dependencies {
     annotationProcessor("io.micronaut.validation:micronaut-validation")
     annotationProcessor("io.micronaut.data:micronaut-data-processor") //jpa
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
 
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa") //jpa
     implementation("io.micronaut.sql:micronaut-jdbc-hikari") //jpa
     implementation("io.micronaut.flyway:micronaut-flyway") //jpa
+    implementation("io.micronaut.security:micronaut-security")
+
+    implementation("io.projectreactor:reactor-core")
 
     compileOnly("io.micronaut:micronaut-http-client")
     compileOnly "org.projectlombok:lombok:$lombokVersion"
