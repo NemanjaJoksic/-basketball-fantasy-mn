@@ -29,4 +29,6 @@ interface PlayerJpaRepository extends JpaRepository<PlayerEntity, Long> {
           where pe.id = :id
           """)
   Optional<PlayerEntity> findById(long id);
+
+  void deleteByTeamId(long teamId);
 }

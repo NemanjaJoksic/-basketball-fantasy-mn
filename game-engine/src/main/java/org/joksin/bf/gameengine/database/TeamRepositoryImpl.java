@@ -13,6 +13,7 @@ import java.util.Optional;
 class TeamRepositoryImpl implements TeamRepository {
 
   private final TeamJpaRepository teamJpaRepository;
+  private final PlayerJpaRepository playerJpaRepository;
 
   private final EntityManager entityManager;
 
@@ -48,6 +49,7 @@ class TeamRepositoryImpl implements TeamRepository {
 
   @Override
   public void deleteById(long id) {
+    playerJpaRepository.deleteByTeamId(id);
     teamJpaRepository.deleteById(id);
   }
 }

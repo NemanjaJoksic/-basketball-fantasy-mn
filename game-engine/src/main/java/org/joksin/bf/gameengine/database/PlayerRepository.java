@@ -11,5 +11,7 @@ public interface PlayerRepository {
 
   Optional<PlayerEntity> findById(long id);
 
+  boolean existsById(long id);
+
   PlayerEntity save(PlayerEntity playerEntity);
 }

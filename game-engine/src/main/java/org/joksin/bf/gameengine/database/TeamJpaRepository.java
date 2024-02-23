@@ -19,8 +19,8 @@ interface TeamJpaRepository extends JpaRepository<TeamEntity, Long> {
   @Query(
       value =
           """
-          from org.joksin.bf.gameengine.database.entity.TeamEntity te 
-          left join fetch te.country 
+          from org.joksin.bf.gameengine.database.entity.TeamEntity te
+          left join fetch te.country
           left join fetch te.players p
           where te.id = :id
           """)

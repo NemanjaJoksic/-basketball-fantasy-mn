@@ -24,6 +24,11 @@ class PlayerRepositoryImpl implements PlayerRepository {
   }
 
   @Override
+  public boolean existsById(long id) {
+    return playerJpaRepository.existsById(id);
+  }
+
+  @Override
   public PlayerEntity save(PlayerEntity playerEntity) {
     return playerJpaRepository.save(playerEntity);
   }

@@ -27,5 +27,4 @@ public class TeamEntity {
   @OrderBy("number")
   @OneToMany(mappedBy = "team")
   private Set<PlayerEntity> players;
-
 }

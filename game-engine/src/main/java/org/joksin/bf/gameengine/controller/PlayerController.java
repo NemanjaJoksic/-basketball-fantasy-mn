@@ -11,7 +11,9 @@ import jakarta.annotation.security.PermitAll;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.model.Player;
 import org.joksin.bf.gameengine.model.request.CreatePlayerRequest;
+import org.joksin.bf.gameengine.model.request.DeletePlayerRequest;
 import org.joksin.bf.gameengine.usecase.CreatePlayerUseCase;
+import org.joksin.bf.gameengine.usecase.DeletePlayerUseCase;
 import org.joksin.bf.gameengine.usecase.FindPlayerUseCase;
 import org.joksin.bf.gameengine.usecase.FindPlayersUseCase;
 
@@ -25,6 +27,7 @@ public class PlayerController {
   private final FindPlayersUseCase findPlayersUseCase;
   private final FindPlayerUseCase findPlayerUseCase;
   private final CreatePlayerUseCase createPlayerUseCase;
+  private final DeletePlayerUseCase deletePlayerUseCase;
 
   @Get("/api/players")
   @PermitAll
@@ -48,5 +51,11 @@ public class PlayerController {
   @Secured(SecurityRule.IS_AUTHENTICATED)
   public Player create(@Body CreatePlayerRequest createPlayerRequest) {
     return createPlayerUseCase.create(createPlayerRequest);
+  }
+
+  @Delete("/api/players/{id}")
+  @Secured(SecurityRule.IS_AUTHENTICATED)
+  public void delete(@PathVariable Long id) {
+    deletePlayerUseCase.delete(new DeletePlayerRequest(id));
   }
 }
