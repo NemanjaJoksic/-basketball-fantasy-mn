@@ -4,7 +4,7 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Builder;
 import org.joksin.bf.gameengine.model.enums.PlayerPosition;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Builder
 @Serdeable
@@ -14,6 +14,6 @@ public record Player(
     Integer number,
     Double height,
     PlayerPosition position,
-    Date born,
+    LocalDate born,
     Country country,
     Team team) {}

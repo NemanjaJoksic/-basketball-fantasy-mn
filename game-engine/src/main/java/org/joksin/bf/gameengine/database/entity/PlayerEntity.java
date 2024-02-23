@@ -2,12 +2,14 @@ package org.joksin.bf.gameengine.database.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.joksin.bf.gameengine.model.enums.PlayerPosition;
 
-import java.util.Date;
+import java.time.LocalDate;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,7 +29,7 @@ public class PlayerEntity {
   @Enumerated(EnumType.STRING)
   private PlayerPosition position;
 
-  private Date born;
+  private LocalDate born;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private CountryEntity country;

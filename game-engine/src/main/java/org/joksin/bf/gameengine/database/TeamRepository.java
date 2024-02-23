@@ -11,6 +11,8 @@ public interface TeamRepository {
 
   Optional<TeamEntity> findById(long id);
 
+  TeamEntity findReferenceById(long id);
+
   boolean existsById(long id);
 
   boolean existsByName(String name);

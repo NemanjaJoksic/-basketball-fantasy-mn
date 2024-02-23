@@ -1,6 +1,7 @@
 package org.joksin.bf.gameengine.database;
 
 import jakarta.inject.Singleton;
+import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.joksin.bf.gameengine.database.entity.TeamEntity;
 
@@ -13,6 +14,8 @@ class TeamRepositoryImpl implements TeamRepository {
 
   private final TeamJpaRepository teamJpaRepository;
 
+  private final EntityManager entityManager;
+
   @Override
   public List<TeamEntity> findAll() {
     return teamJpaRepository.findAll();
@@ -21,6 +24,11 @@ class TeamRepositoryImpl implements TeamRepository {
   @Override
   public Optional<TeamEntity> findById(long id) {
     return teamJpaRepository.findById(id);
+  }
+
+  @Override
+  public TeamEntity findReferenceById(long id) {
+    return entityManager.getReference(TeamEntity.class, id);
   }
 
   @Override
